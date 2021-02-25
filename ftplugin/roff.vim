@@ -1,12 +1,12 @@
-" File: troff.vim
+" File: roff.vim
 " Maintainer: Chris Fröschl <cfroeschl@protonmail.com>
-" Last Modified: Sun 07 Feb 2021 07:59:27 AM CET
+" Last Modified: Thu 18 Feb 2021 08:03:02 PM CET
 " License:
 " Copyright (c) Chris Fröschl. Distributed under the same terms as Vim itself.
 " See :help license
 "
 " Description:
-" Troff file specific functionality.
+" Roff file specific functionality.
 
 " Plugin pre check. {{{
 

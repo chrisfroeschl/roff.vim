@@ -1,101 +1,133 @@
-" File: troff.vim
+" File: roff.vim
 " Maintainer: Chris Fröschl <cfroeschl@protonmail.com>
-" Last Modified: Tue 22 Dec 2020 02:33:12 PM CET
+" Last Modified: Sun 21 Feb 2021 08:29:28 PM CET
 " License:
 " Copyright (c) Chris Fröschl. Distributed under the same terms as Vim itself.
 " See :help license
 "
 " Description:
-" Extended syntax support for troff.
+" Extended syntax support for roff. 
 
+" Starter {{{
+
+" Since we only append syntax to groff, we don't have to do the traditional current_syntax
+" check afterwards.
 runtime! syntax/groff.vim
 
-" Make this optional
-if !exists('g:troff_greek')
-	let g:troff_greek =1
+if !exists('g:roff_greek')
+	let g:roff_greek =1
 endif
-if !exists('g:troff_math')
-	let g:troff_math =1
+if !exists('g:roff_math')
+	let g:roff_math =1
 endif
-if !exists('g:troff_supsub')
-	let g:troff_supsub =1
-endif
-
-fun! s:TroffConceal(group, pat, cchar)
-	exe 'syn match '.a:group." '".a:pat."' contained conceal cchar=".a:cchar
-endfun
-
-if exists('g:troff_greek')
-	call s:TroffConceal('roffGreek', '\<alpha\>', 'α')
-	call s:TroffConceal('roffGreek', '\<beta\>','β')
-	call s:TroffConceal('roffGreek', '\<gamma\>', 'γ')
-	call s:TroffConceal('roffGreek', '\<delta\>', 'δ')
-	call s:TroffConceal('roffGreek', '\<epsilon\>', 'ϵ')
-	call s:TroffConceal('roffGreek', '\<varepsilon\>', 'ε')
-	call s:TroffConceal('roffGreek', '\<zeta\>', 'ζ')
-	call s:TroffConceal('roffGreek', '\<eta\>', 'η')
-	call s:TroffConceal('roffGreek', '\<theta\>', 'θ')
-	call s:TroffConceal('roffGreek', '\<vartheta\>', 'ϑ')
-	call s:TroffConceal('roffGreek', '\<iota\>', 'ι')
-	call s:TroffConceal('roffGreek', '\<kappa\>', 'κ')
-	call s:TroffConceal('roffGreek', '\<lambda\>', 'λ')
-	call s:TroffConceal('roffGreek', '\<mu\>', 'μ')
-	call s:TroffConceal('roffGreek', '\<nu\>', 'ν')
-	call s:TroffConceal('roffGreek', '\<xi\>', 'ξ')
-	call s:TroffConceal('roffGreek', '\<pi\>', 'π')
-	call s:TroffConceal('roffGreek', '\<varpi\>', 'ϖ')
-	call s:TroffConceal('roffGreek', '\<rho\>', 'ρ')
-	call s:TroffConceal('roffGreek', '\<varrho\>', 'ϱ')
-	call s:TroffConceal('roffGreek', '\<sigma\>', 'σ')
-	call s:TroffConceal('roffGreek', '\<varsigma\>', 'ς')
-	call s:TroffConceal('roffGreek', '\<tau\>', 'τ')
-	call s:TroffConceal('roffGreek', '\<upsilon\>', 'υ')
-	call s:TroffConceal('roffGreek', '\<phi\>', 'ϕ')
-	call s:TroffConceal('roffGreek', '\<varphi\>', 'φ')
-	call s:TroffConceal('roffGreek', '\<chi\>', 'χ')
-	call s:TroffConceal('roffGreek', '\<psi\>', 'ψ')
-	call s:TroffConceal('roffGreek', '\<omega\>', 'ω')
-	call s:TroffConceal('roffGreek', '\<GAMMA\>', 'Γ')
-	call s:TroffConceal('roffGreek', '\<DELTA\>', 'Δ')
-	call s:TroffConceal('roffGreek', '\<THETA\>', 'Θ')
-	call s:TroffConceal('roffGreek', '\<LAMBDA\>', 'Λ')
-	call s:TroffConceal('roffGreek', '\<XI\>', 'Ξ')
-	call s:TroffConceal('roffGreek', '\<PI\>', 'Π')
-	call s:TroffConceal('roffGreek', '\<SIGMA\>', 'Σ')
-	call s:TroffConceal('roffGreek', '\<UPSILON\>', 'Υ')
-	call s:TroffConceal('roffGreek', '\<PHI\>', 'Φ')
-	call s:TroffConceal('roffGreek', '\<CHI\>', 'Χ')
-	call s:TroffConceal('roffGreek', '\<PSI\>', 'Ψ')
-	call s:TroffConceal('roffGreek', '\<OMEGA\>', 'Ω')
-endif 
-
-if exists('g:troff_math')
-	call s:TroffConceal('roffMath', '>= ', '≥ ')
-	call s:TroffConceal('roffMath', '<= ', '≤ ')
-	call s:TroffConceal('roffMath', '== ', '≡ ')
-	call s:TroffConceal('roffMath', '!= ', '≠ ')
-	call s:TroffConceal('roffMath', '\<int\>', '∫')
-	call s:TroffConceal('roffMath', '\<inf\>', '∞')
-	call s:TroffConceal('roffMath', '<-', '←')
-	call s:TroffConceal('roffMath', '->', '→')
-	call s:TroffConceal('roffMath', '\<partial\>', '∂')
-	call s:TroffConceal('roffMath', '\<prime \>', '′')
-	call s:TroffConceal('roffMath', '\<times\>', '×')
-	call s:TroffConceal('roffMath', '\<prod\>', '∏')
-	call s:TroffConceal('roffMath', '\<del\>', '∇')
-	call s:TroffConceal('roffMath', '\<grad\>', '∇')
-	call s:TroffConceal('roffMath', '\<inter\>', '∩')
-	call s:TroffConceal('roffMath', '\<union\>', '∪')
-	call s:TroffConceal('roffMath', '\<sum\>', '∑')
-	call s:TroffConceal('roffMath', '\<sqrt\>', '√')
-	call s:TroffConceal('roffMath', '\<over\>', '/')
+if !exists('g:roff_supsub')
+	let g:roff_supsub =1
 endif
 
-if exists('g:troff_supsub')
-	fun! s:SuperSub(group,leader,pat,cchar)
-		exe 'syn match '.a:group." '".a:leader.a:pat."' contained conceal cchar=".a:cchar
-		exe 'syn match '.a:group."s '".a:pat        ."' contained conceal cchar=".a:cchar.' nextgroup='.a:group.'s'
-	endfun
+" }}}
+
+" RoffConceal {{{
+
+" RoffConceal: Helper function {{{
+
+" TODO Probably have to set conceallevel in plugin locally.
+if has("conceal")
+    function! s:RoffConceal(group, pat, cchar)
+        exe 'syntax match ' . a:group . " '" . a:pat . "' contained conceal cchar=" . a:cchar
+    endfun
+
+" }}}
+
+" RoffConceal: Greek {{{
+
+    if exists('g:roff_greek')
+            call s:RoffConceal('roffGreek', '\<alpha\>', 'α')
+            call s:RoffConceal('roffGreek', '\<beta\>','β')
+            call s:RoffConceal('roffGreek', '\<gamma\>', 'γ')
+            call s:RoffConceal('roffGreek', '\<delta\>', 'δ')
+            call s:RoffConceal('roffGreek', '\<epsilon\>', 'ϵ')
+            call s:RoffConceal('roffGreek', '\<varepsilon\>', 'ε')
+            call s:RoffConceal('roffGreek', '\<zeta\>', 'ζ')
+            call s:RoffConceal('roffGreek', '\<eta\>', 'η')
+            call s:RoffConceal('roffGreek', '\<theta\>', 'θ')
+            call s:RoffConceal('roffGreek', '\<vartheta\>', 'ϑ')
+            call s:RoffConceal('roffGreek', '\<iota\>', 'ι')
+            call s:RoffConceal('roffGreek', '\<kappa\>', 'κ')
+            call s:RoffConceal('roffGreek', '\<lambda\>', 'λ')
+            call s:RoffConceal('roffGreek', '\<mu\>', 'μ')
+            call s:RoffConceal('roffGreek', '\<nu\>', 'ν')
+            call s:RoffConceal('roffGreek', '\<xi\>', 'ξ')
+            call s:RoffConceal('roffGreek', '\<pi\>', 'π')
+            call s:RoffConceal('roffGreek', '\<varpi\>', 'ϖ')
+            call s:RoffConceal('roffGreek', '\<rho\>', 'ρ')
+            call s:RoffConceal('roffGreek', '\<varrho\>', 'ϱ')
+            call s:RoffConceal('roffGreek', '\<sigma\>', 'σ')
+            call s:RoffConceal('roffGreek', '\<varsigma\>', 'ς')
+            call s:RoffConceal('roffGreek', '\<tau\>', 'τ')
+            call s:RoffConceal('roffGreek', '\<upsilon\>', 'υ')
+            call s:RoffConceal('roffGreek', '\<phi\>', 'ϕ')
+            call s:RoffConceal('roffGreek', '\<varphi\>', 'φ')
+            call s:RoffConceal('roffGreek', '\<chi\>', 'χ')
+            call s:RoffConceal('roffGreek', '\<psi\>', 'ψ')
+            call s:RoffConceal('roffGreek', '\<omega\>', 'ω')
+            call s:RoffConceal('roffGreek', '\<GAMMA\>', 'Γ')
+            call s:RoffConceal('roffGreek', '\<DELTA\>', 'Δ')
+            call s:RoffConceal('roffGreek', '\<THETA\>', 'Θ')
+            call s:RoffConceal('roffGreek', '\<LAMBDA\>', 'Λ')
+            call s:RoffConceal('roffGreek', '\<XI\>', 'Ξ')
+            call s:RoffConceal('roffGreek', '\<PI\>', 'Π')
+            call s:RoffConceal('roffGreek', '\<SIGMA\>', 'Σ')
+            call s:RoffConceal('roffGreek', '\<UPSILON\>', 'Υ')
+            call s:RoffConceal('roffGreek', '\<PHI\>', 'Φ')
+            call s:RoffConceal('roffGreek', '\<CHI\>', 'Χ')
+            call s:RoffConceal('roffGreek', '\<PSI\>', 'Ψ')
+            call s:RoffConceal('roffGreek', '\<OMEGA\>', 'Ω')
+    endif 
+
+" }}}
+
+" RoffConceal: Math {{{
+
+    if exists('g:roff_math')
+            call s:RoffConceal('roffMath', '>= ', '≥ ')
+            call s:RoffConceal('roffMath', '<= ', '≤ ')
+            call s:RoffConceal('roffMath', '== ', '≡ ')
+            call s:RoffConceal('roffMath', '!= ', '≠ ')
+            call s:RoffConceal('roffMath', '\<int\>', '∫')
+            call s:RoffConceal('roffMath', '\<inf\>', '∞')
+            call s:RoffConceal('roffMath', '<-', '←')
+            call s:RoffConceal('roffMath', '->', '→')
+            call s:RoffConceal('roffMath', '\<partial\>', '∂')
+            call s:RoffConceal('roffMath', '\<prime \>', '′')
+            call s:RoffConceal('roffMath', '\<times\>', '×')
+            call s:RoffConceal('roffMath', '\<prod\>', '∏')
+            call s:RoffConceal('roffMath', '\<del\>', '∇')
+            call s:RoffConceal('roffMath', '\<grad\>', '∇')
+            call s:RoffConceal('roffMath', '\<inter\>', '∩')
+            call s:RoffConceal('roffMath', '\<union\>', '∪')
+            call s:RoffConceal('roffMath', '\<sum\>', '∑')
+            call s:RoffConceal('roffMath', '\<sqrt\>', '√')
+            call s:RoffConceal('roffMath', '\<over\>', '/')
+    endif
+" }}}
+
+endif
+
+" }}}
+
+" SuperSub {{{
+
+" SuperSub: Helper function {{{
+
+if exists('g:roff_supsub')
+	function! s:SuperSub(group,leader,pat,cchar)
+		exe 'syntax match '.a:group." '".a:leader.a:pat."' contained conceal cchar=".a:cchar
+		exe 'syntax match '.a:group."s '".a:pat        ."' contained conceal cchar=".a:cchar.' nextgroup='.a:group.'s'
+	endfunction
+
+" }}}
+
+" SuperSub: Calls {{{
 
 	call s:SuperSub('roffSuperscript',' sup ','\<0\>','⁰')
 	call s:SuperSub('roffSuperscript',' sup ','\<1\>','¹')
@@ -213,7 +245,6 @@ if exists('g:troff_supsub')
 	call s:SuperSub('roffSuperscript',' sup ','\<W\>','ᵂ')
 	call s:SuperSub('roffSuperscript',' sup ','\<+\>','⁺')
 	call s:SuperSub('roffSuperscript',' sup ','\<-\>','⁻')
-
 	call s:SuperSub('roffSubscript',' sub ','\<0\>','₀')
 	call s:SuperSub('roffSubscript',' sub ','\<1\>','₁')
 	call s:SuperSub('roffSubscript',' sub ','\<2\>','₂')
@@ -256,49 +287,54 @@ if exists('g:troff_supsub')
 	call s:SuperSub('roffSubscript',' sub ','\\phi\>'  ,'ᵩ')
 	call s:SuperSub('roffSubscript',' sub ','\\gamma\>','ᵧ')
 	call s:SuperSub('roffSubscript',' sub ','\\chi\>'  ,'ᵪ')
-	delfun s:SuperSub
+	delfunction s:SuperSub
 endif
-hi def link roffMath Special
 
-" Turn bolded text bold and italic text italic.
-syn region nroffBold matchgroup=Delimiter start="\\fB\|\\f\[B\]" end="\\fP\|\\f\[P\?\]\|\\f\[R\]\|\\fR" contains=@Spell keepend  concealends
-syn region nroffItalic matchgroup=Delimiter start="\\fI\|\\f\[I\]" end="\\fP\|\\f\[P\?\]\|\\f\[R\]\|\\fR" contains=@Spell keepend  concealends
+" }}}
 
-hi def nroffBold   term=bold                 cterm=bold        gui=bold
-hi def nroffItalic term=italic               cterm=italic      gui=italic
-" }}} "
+" }}}
+
+" NoSpell {{{
 
 " Avoids highlighting spelling in macro names
-" NoSpell {{{"
 syntax spell toplevel
-if !exists("g:troff_nospell_macros") || g:troff_nospell_macros
-	syn region nroffEscArg start=/'/ end=/'/ contained contains=nroffEscape,@nroffSpecial,@NoSpell
-	syn cluster nroffSpecial contains=nroffSpecialChar,nroffSpace,@NoSpell
-	syn match nroffReqLeader /^[.']/ contains=@NoSpell	nextgroup=nroffReqName skipwhite
-
-	syn region nroffIgnore start=/^[.']\s*ig/ end=/^['.]\s*\./
-	syn match nroffReqLeader /[.']/	contains=@NoSpell contained nextgroup=nroffReqName skipwhite
-	syn match nroffReqName /[^\t \\\[?]\+/ contains=@NoSpell contained nextgroup=nroffReqArg
-	syn region nroffReqArg start=/\S/ skip=/\\$/ end=/$/ contained contains=nroffEscape,@nroffSpecial,nroffString,nroffError,nroffSpaceError,nroffNumBlock,nroffComment,@NoSpell
-	syn match nroffReqName /\(if\|ie\)/ contains=@NoSpell contained nextgroup=nroffCond skipwhite
-	syn match nroffReqName /el/ contains=@NoSpell contained nextgroup=nroffReqLeader skipwhite
-	syn match nroffReqname /[da]s/  contains=@NoSpell contained nextgroup=nroffDefIdent skipwhite
-	syn region nroffDefinition matchgroup=nroffSpecialChar start=/"/ matchgroup=NONE end=/\\"/me=e-2 skip=/\\$/ start=/\S/ end=/$/ contained contains=nroffDefSpecial,@NoSpell
-	syn match nroffReqName /\(d[ei]\|am\)/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
-	syn match nroffReqName /als/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
-	syn match nroffReqName /[rn]r/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
-	syn match nroffReqName /\(rnn\|aln\)/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
+if !exists("g:roff_nospell_macros") || g:roff_nospell_macros
+	syntax region nroffEscArg start=/'/ end=/'/ contained contains=nroffEscape,@nroffSpecial,@NoSpell
+	syntax cluster nroffSpecial contains=nroffSpecialChar,nroffSpace,@NoSpell
+	syntax match nroffReqLeader /^[.']/ contains=@NoSpell	nextgroup=nroffReqName skipwhite
+	syntax region nroffIgnore start=/^[.']\s*ig/ end=/^['.]\s*\./
+	syntax match nroffReqLeader /[.']/	contains=@NoSpell contained nextgroup=nroffReqName skipwhite
+	syntax match nroffReqName /[^\t \\\[?]\+/ contains=@NoSpell contained nextgroup=nroffReqArg
+	syntax region nroffReqArg start=/\S/ skip=/\\$/ end=/$/ contained contains=nroffEscape,@nroffSpecial,nroffString,nroffError,nroffSpaceError,nroffNumBlock,nroffComment,@NoSpell
+	syntax match nroffReqName /\(if\|ie\)/ contains=@NoSpell contained nextgroup=nroffCond skipwhite
+	syntax match nroffReqName /el/ contains=@NoSpell contained nextgroup=nroffReqLeader skipwhite
+	syntax match nroffReqname /[da]s/  contains=@NoSpell contained nextgroup=nroffDefIdent skipwhite
+	syntax region nroffDefinition matchgroup=nroffSpecialChar start=/"/ matchgroup=NONE end=/\\"/me=e-2 skip=/\\$/ start=/\S/ end=/$/ contained contains=nroffDefSpecial,@NoSpell
+	syntax match nroffReqName /\(d[ei]\|am\)/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
+	syntax match nroffReqName /als/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
+	syntax match nroffReqName /[rn]r/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
+	syntax match nroffReqName /\(rnn\|aln\)/ contains=@NoSpell contained nextgroup=nroffIdent skipwhite
 endif
+
+" }}}
+
+" Preprocessor folding {{{
 
 " Allow for folding of preprocessor sections
-" preprocessor folding
-syn region nroffEquation start=/^\.\s*EQ\>/ end=/^\.\s*EN\>/ contains=roffGreek,roffMath,roffSuperscript,roffSubscript fold
-
-if exists('g:troff_eqndelim')
-	exec 'syn region nroffEquationDel matchgroup=Delimiter start="' . troff_eqndelim[0] .'"  matchgroup=Delimiter	end="' . troff_eqndelim[1] . '"  contains=roffGreek,roffMath,roffSuperscript,roffSubscript concealends '
+syntax region nroffEquation start=/^\.\s*EQ\>/ end=/^\.\s*EN\>/ contains=roffGreek,roffMath,roffSuperscript,roffSubscript fold
+if exists('g:roff_eqndelim')
+	exec 'syntax region nroffEquationDel matchgroup=Delimiter start="' . roff_eqndelim[0] .'"  matchgroup=Delimiter	end="' . roff_eqndelim[1] . '"  contains=roffGreek,roffMath,roffSuperscript,roffSubscript concealends '
 endif
-syn region nroffTable start=/^\.\s*TS\>/ end=/^\.\s*TE\>/ fold
-syn region nroffPicture start=/^\.\s*PS\>/ end=/^\.\s*PE\>/ fold
-syn region nroffRefer start=/^\.\s*\[\>/ end=/^\.\s*\]\>/ fold
-syn region nroffGrap start=/^\.\s*G1\>/ end=/^\.\s*G2\>/ fold
-syn region nroffGremlin start=/^\.\s*GS\>/ end=/^\.\s*GE|GF\>/ fold
+syntax region nroffTable start=/^\.\s*TS\>/ end=/^\.\s*TE\>/ fold
+syntax region nroffPicture start=/^\.\s*PS\>/ end=/^\.\s*PE\>/ fold
+syntax region nroffRefer start=/^\.\s*\[\>/ end=/^\.\s*\]\>/ fold
+syntax region nroffGrap start=/^\.\s*G1\>/ end=/^\.\s*G2\>/ fold
+syntax region nroffGremlin start=/^\.\s*GS\>/ end=/^\.\s*GE|GF\>/ fold
+
+" }}}
+
+" Highlighting {{{
+
+highlight def link roffMath Special
+
+" }}}

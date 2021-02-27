@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Rename from 'troff' to 'roff'.
+- Folding method from 'marker' to 'syntax'.
 
 [unreleased]: https://github.com/chrisfroeschl/roff.vim
 [0.0.1]: https://github.com/chrisfroeschl/roff.vim/releases/tag/0.0.1

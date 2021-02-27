@@ -1,6 +1,6 @@
 " File: roff.vim
 " Maintainer: Chris Fröschl <cfroeschl@protonmail.com>
-" Last Modified: Sun 21 Feb 2021 08:29:28 PM CET
+" Last Modified: Sat 27 Feb 2021 03:51:58 PM CET
 " License:
 " Copyright (c) Chris Fröschl. Distributed under the same terms as Vim itself.
 " See :help license
@@ -321,10 +321,10 @@ endif
 " Preprocessor folding {{{
 
 " Allow for folding of preprocessor sections
-syntax region nroffEquation start=/^\.\s*EQ\>/ end=/^\.\s*EN\>/ contains=roffGreek,roffMath,roffSuperscript,roffSubscript fold
 if exists('g:roff_eqndelim')
 	exec 'syntax region nroffEquationDel matchgroup=Delimiter start="' . roff_eqndelim[0] .'"  matchgroup=Delimiter	end="' . roff_eqndelim[1] . '"  contains=roffGreek,roffMath,roffSuperscript,roffSubscript concealends '
 endif
+syntax region nroffEquation start=/^\.\s*EQ\>/ end=/^\.\s*EN\>/ contains=roffGreek,roffMath,roffSuperscript,roffSubscript fold
 syntax region nroffTable start=/^\.\s*TS\>/ end=/^\.\s*TE\>/ fold
 syntax region nroffPicture start=/^\.\s*PS\>/ end=/^\.\s*PE\>/ fold
 syntax region nroffRefer start=/^\.\s*\[\>/ end=/^\.\s*\]\>/ fold
